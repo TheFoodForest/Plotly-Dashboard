@@ -70,26 +70,80 @@ function updateBubble(name, data) {
 // function tp update gauge graph
 function updateGauge(name, data) {
     var demoDatas = unpackDemo(name, data);
-       var data2 = [{
-        domain: { x: [0, 1], y: [0, 1] },
-		value: demoDatas[0].wfreq,
-        title: { text: "<b>Belly Button Washing Frequency</b><br>Scrubs per Week" },
-        gauge: {
-            axis: {range: [null, 9]},
-            steps: [
-                {range: [0,3], color:"rgb(255, 26, 26)"},
-                {range: [3,6], color:"rgb(0, 179, 0)"},
-                {range: [6,9], color:"rgb(102, 153, 255)"}
-            ],
-            bar: {color : 'black'}
+    // value for speed gauge 
+    var level = demoDatas[0].wfreq;
+
+// Trig to calc meter point
+    var degrees = (10 - level) * 180/10,
+	 radius = .5;
+    var radians = degrees * Math.PI / 180;
+    var x = radius * Math.cos(radians);
+    var y = radius * Math.sin(radians);
+
+    // Path: may have to change to create a better triangle
+    var mainPath = 'M -.0 -0.025 L .0 0.025 L ',
+        pathX = String(x),
+        space = ' ',
+        pathY = String(y),
+        pathEnd = ' Z';
+    var path = mainPath.concat(pathX,space,pathY,pathEnd);
+    var data = [{ type: 'scatter',
+    x: [0], y:[0],
+        marker: {size: 28, color:'850000'},
+        showlegend: false,
+        name: 'Washes',
+        text: level,
+        hoverinfo: 'text+name'},
+    { values: [50/5, 50/5, 50/5, 50/5,50/5, 50],
+    rotation: 90,
+    text: ['Very Often', 'Quite Often', 'Often', 'Not Often','Never', ''],
+    textinfo: 'text',
+    textposition:'inside',	  
+    marker: {colors:['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
+                            'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)','rgba(187, 187, 119,.5)',
+                            
+                            'rgba(255, 255, 255, 0)']},
+    labels: ['9-10', '7-8', '5-6', '3-4','0-2', ''],
+    hoverinfo: 'label',
+    hole: .8,
+    type: 'pie',
+    showlegend: false
+    }, { values: [50/5, 50/5, 50/5, 50/5,50/5, 50],
+        rotation: 90,
+        text: ['9-10     ', '7-8  ', '5-6', '3-4','   0-2', ''],
+        textinfo: 'text',
+        textfont: {
+            size: 10
         },
-		type: "indicator",
-        mode: "gauge+number",
+        textposition:'auto',	  
+        marker: {colors:['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
+        'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)','rgba(187, 187, 119,.5)',
         
-
-       }]
-
-       Plotly.newPlot("gauge", data2);
+        'rgba(255, 255, 255, 0)']},
+        labels: ['9-10', '7-8', '5-6', '3-4','0-2', ''],
+        hoverinfo: 'label',
+        hole: .5,
+        type: 'pie',
+        showlegend: false
+      }];
+    var layout = {
+        height:600,
+        width:600,
+        title: { text: "<b>Belly Button Washing Frequency</b><br>Scrubs per Week" },
+        shapes:[{
+            type: 'path',
+            path: path,
+            fillcolor: '850000',
+            line: {
+              color: '850000'
+            }
+          }],
+          xaxis: {zeroline:false, showticklabels:false,
+            showgrid: false, range: [-1, 1]},
+ yaxis: {zeroline:false, showticklabels:false,
+            showgrid: false, range: [-1, 1]}      
+    };
+       Plotly.newPlot("gauge", data, layout);
 }
 // function to update demographic info 
 function updateDemo(name, data) {
