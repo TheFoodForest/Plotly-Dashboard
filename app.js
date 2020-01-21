@@ -3,7 +3,7 @@
 // });
 //init function to build graphs
 function buildPage() {
-    d3.json("../../samples.json").then(function(data){
+    d3.json("static\\data\\samples.json").then(function(data){
        var names = data.names;
        d3.select('#selected').text(names[56]);
        names.forEach(item => {
@@ -138,7 +138,7 @@ function unpackBubble(name, data) {
 } 
 // function to update page 
 function updatePage(name) {
-    d3.json("../../samples.json").then(function(data) {
+    d3.json("static\\data\\samples.json").then(function(data) {
         updateBar(name,data);
         updateDemo(name,data);
         updateBubble(name, data);
@@ -153,7 +153,7 @@ function optionChanged(value) {
 // event listener for search box
 var button = d3.select('#filter-btn');
 button.on('click', function() {
-    d3.json("../../samples.json").then(function(data){
+    d3.json("static\\data\\samples.json").then(function(data){
         var names = data.names;
     var input_name = d3.select("#searchbox").property('value');
     if (names.includes(input_name)) {
