@@ -22,10 +22,27 @@
     <div class="row">
       <div class="col-md-2">
         <div class="well">
+          <div>
           <h5>Test Subject ID No.:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)">
             <option id="selected" selected></option>
           </select>
+        </div>
+        <div>      </div>
+          <div>
+          <ul class="list-group" id="filters">
+
+            <li class="filter list-group-item">
+
+              <label for="date">Enter ID No.</label>
+
+              <input class="form-control" id="searchbox" type="text" placeholder="1281">
+              
+
+            </li>
+          </ul>
+          <button id="filter-btn" type="button" class="btn btn-default">Filter Dashboard</button>
+        </div>
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
@@ -42,7 +59,7 @@
         <div id="bar"></div>
       </div>
       <div class="col-md-5">
-        <div id="gauge"></div>
+        <div id="gauge" style="display: block; margin-left: auto; margin-right: auto;"></div>
       </div>
     </div>
     <div class="row">
