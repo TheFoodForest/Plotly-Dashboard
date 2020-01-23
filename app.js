@@ -5,14 +5,16 @@
 function buildPage() {
     d3.json("static\\data\\samples.json").then(function(data){
        var names = data.names;
-       d3.select('#selected').text(names[56]);
+       var randomStart = Math.floor(Math.random()*names.length);
+       d3.select('#selected').text(names[randomStart]);
+       d3.select("#searchbox").attr("placeholder", names[randomStart]);
        names.forEach(item => {
         d3.select("#selDataset").append("option").text(`${item}`).attr("value", item);
         });
-        updateBar(names[56],data);
-        updateDemo(names[56],data);
-        updateBubble(names[56], data);
-        updateGauge(names[56], data);
+        updateBar(names[randomStart],data);
+        updateDemo(names[randomStart],data);
+        updateBubble(names[randomStart], data);
+        updateGauge(names[randomStart], data);
     });
 }
 // function to update bar graph 
@@ -26,6 +28,11 @@ function updateBar(name, data) {
            type: 'bar'
        }];
        var barlayout = {
+           height:500,
+           width:400,
+           margin: {
+               l:110
+           },
            title: {text: `<b>Top OTU's Found in Test Subject: ${name}</b><br>Each OTU is a differnt Microbial Specie`,
                     font :{size:18}
                 },
@@ -197,6 +204,8 @@ function updatePage(name) {
         updateDemo(name,data);
         updateBubble(name, data);
         updateGauge(name, data);
+        d3.select("#searchbox").attr("placeholder", name);
+        d3.select('#selected').text(name);
     });
 }
 // function attached to event listener in html 
@@ -221,4 +230,6 @@ button.on('click', function() {
 });
 // Build the page 
 buildPage();
+
+
 
