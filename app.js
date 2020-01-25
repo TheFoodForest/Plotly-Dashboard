@@ -193,7 +193,7 @@ function unpackBubble(name, data) {
 
     let sample_values = filtered[0].sample_values;
 
-    let otu_labels = filtered[0].otu_labels;
+    let otu_labels = filtered[0].otu_labels.map(item => item.replace(/;/gi,"<br>"));
 
     return [otu_ids, sample_values, otu_labels];
 } 
