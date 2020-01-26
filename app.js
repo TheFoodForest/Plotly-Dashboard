@@ -224,7 +224,7 @@ button.on('click', function() {
     updatePage(input_name);
     }
     else {
-       alert(`ID No.: ${input_name} not in records`); 
+       alert(`ID No.: ${input_name} not in records. Please search for a different ID No.`); 
     }
 });
 });

@@ -1,0 +1,30 @@
+#footer {
+    background-color: steelblue;
+    margin-bottom: 0;
+}
+
+h4 {
+    text-align: center;
+}
+a {
+    color: rgb(44, 44, 44);
+}
+
+#top-title {
+    background-color: steelblue;
+}
+
+.well {
+    background-color: rgb(19, 134, 57);
+}
+
+h5 {
+    font-weight: 600;
+    font-size: medium;
+    color: white;
+}
+
+#filters {
+    background-color: rgb(224, 224, 224);
+    outline: rgb(216, 216, 216);
+}
